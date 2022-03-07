@@ -25,16 +25,15 @@ def get_ascii(brightness):
 
 
 def make_ascii(image):
+    
     image = cv.imread(image)
     string = '\t\t\t\t\t\t\t\t'
-    for row in range(0, len(image) - 1, 2):
-        for col in range(0, len(image[row]) - 1, 2):
-            section = average([
-                average([average(image[row, col]), average(image[row, col + 1])]),
-                average([average(image[row + 1, col]), average(image[row + 1, col + 1])])
-                # is there an easier / less ugly
-            ])  # way to do this?
+    for row in range(0, height):
+        for col in range(0, width):
+            section = average(image[row, col])
             string += get_ascii(section)
+            
+        string += '\n'
         string += '\n\t\t\t\t\t\t\t\t'
 
     with open('output.txt', 'w', encoding='utf-8') as f:
